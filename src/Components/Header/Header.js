@@ -5,7 +5,7 @@ import './Header.sass';
 const Header = () =>{
     return(
         <header className="header">
-            <h1>Simple Weather App</h1>
+            <h1>Current Weather App</h1>
         </header>
 
     )

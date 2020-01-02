@@ -1,19 +1,31 @@
 .input
-    margin: 10px auto
+    margin: 0 auto
     width: 600px
-    background-color: #3c3c3c
+    background-color: #e4e3e3
     text-align: center
     height: 60px
     padding-top: 30px
+    border-top: 1px solid white
 
     input
-        height: 20px
-        width: 400px
+        height: 30px
+        padding-left: 10px
+        width: 200px
+        margin-right: 10px
+        border-radius: 7px
+        border: 1px solid #d65b25
         &:focus
             outline: none
 
     button
-        height: 26px
-        color: #3c3c3c
+        color: #e9e7e7
+        padding: 8px 10px
+        border-radius: 7px
+        border: 1px solid #d65b25
+        background-color: #da7245
+        transition: all .5s ease
         &:hover
             cursor: pointer
+            background-color: darken(#da7245, 10%)
+        &:focus
+            outline: none

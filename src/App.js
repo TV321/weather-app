@@ -6,13 +6,16 @@ import './App.sass';
 
 class App extends Component{
 
-    // apiKey = 71c4ce3c29929e4460d9506740399393;
 
     state = {
         city: "",
         temp: "",
+        feelsLike: "",
+        tempMin: "",
+        tempMax: "",
         pressure: "",
         humidity: "",
+        icon: "",
         inputValue: ""
     }
 
@@ -22,16 +25,21 @@ class App extends Component{
     }
 
     onSubmit = () =>{
+        const apiKey = "71c4ce3c29929e4460d9506740399393";
         const inputCity = document.getElementById('inputCity')
         let city = this.state.inputValue;
         console.log(city);
-        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=71c4ce3c29929e4460d9506740399393`)
+        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${apiKey}`)
             .then(response => response.json())
             .then(resp => this.setState ( {
                 city: resp.name,
                 temp: resp.main.temp,
+                feelsLike: resp.main.feels_like,
+                tempMin: resp.main.temp_min,
+                tempMax: resp.main.temp_max,
                 pressure: resp.main.pressure,
-                humidity: resp.main.humidity
+                humidity: resp.main.humidity,
+                icon: resp.weather[0].icon
               } ))
             .then(()=> {
                 this.setState({ inputValue: "" })
@@ -42,24 +50,38 @@ class App extends Component{
 
 
     render() {
+         if (this.state.city) {
+            return (
+                <div>
+                    <Header />
+                    <Input
+                        onChange={ this.onChange }
+                        onSubmit={ this.onSubmit }
+                    />
+                  <DataDisplay
+                      city={ this.state.city }
+                      temp={ this.state.temp }
+                      pressure={ this.state.pressure }
+                      humidity={ this.state.humidity }
+                      icon={ this.state.icon }
+                      max={ this.state.tempMax }
+                      min={ this.state.tempMin }
+                      feels={ this.state.feelsLike }
+                  />
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Header />
+                    <Input
+                        onChange={ this.onChange }
+                        onSubmit={ this.onSubmit }
+                    />
+                </div>
+            )
+        }
 
-        return (
-          <div className="App">
-            <header className="App-header">
-              <Header />
-              <Input
-                  onChange={ this.onChange }
-                  onSubmit={ this.onSubmit }
-              />
-              <DataDisplay
-                  city={ this.state.city }
-                  temp={ this.state.temp }
-                  pressure={ this.state.pressure }
-                  humidity={ this.state.humidity }
-              />
-            </header>
-          </div>
-        );
     }
 }
 
